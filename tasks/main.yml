@@ -15,7 +15,7 @@
     - nodejs
 
 # NOTE: npm is included
-- name: install nodejs packages
+- name: Install nodejs packages
   become: yes
   apt:
     name: "nodejs={{ node_version | regex_replace('x','') }}*"
