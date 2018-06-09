@@ -6,7 +6,7 @@ Role Variables
 --------------
 
 ```
-# Any Vars?
+node_version: 6.x
 ```
 
 ----------------
