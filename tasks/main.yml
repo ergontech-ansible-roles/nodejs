@@ -25,6 +25,6 @@
 
 - include: yarn.yml
   when: install_yarn
-    tags:
-          - nodejs
-          - yarn
+  tags:
+    - nodejs
+    - yarn
