@@ -1,3 +1,4 @@
 ---
 
+install_yarn: true
 node_version: 8.x

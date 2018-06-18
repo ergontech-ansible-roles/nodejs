@@ -22,3 +22,9 @@
     update_cache: yes
   tags:
     - nodejs
+
+- include: yarn.yml
+  when: install_yarn
+    tags:
+          - nodejs
+          - yarn

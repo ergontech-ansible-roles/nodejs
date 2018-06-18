@@ -1,0 +1,23 @@
+---
+
+- name: Install apt key
+  become: yes
+  apt_key:
+    url: https://dl.yarnpkg.com/debian/pubkey.gpg
+  tags:
+    - yarn
+
+- name: Install apt source
+  become: yes
+  apt_repository:
+    repo: "deb https://dl.yarnpkg.com/debian/ stable main"
+  tags:
+    - yarn
+
+- name: Install packages
+  become: yes
+  apt:
+    name: "yarn"
+    update_cache: yes
+  tags:
+    - yarn
