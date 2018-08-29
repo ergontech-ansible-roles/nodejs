@@ -7,9 +7,8 @@ rvm:
   - 2.5.1
 
 before_install:
-  - sudo apt-get install -y python2.7
-  - sudo apt-get install -y python-setuptools
   - gem install serverspec
+  - sudo apt-get install -y python2.7 python-setuptools
   - sudo easy_install pip
   - sudo pip install ansible
 
