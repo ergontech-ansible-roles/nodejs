@@ -15,7 +15,7 @@ before_install:
 install: gem install serverspec
 
 before_script:
-  - ansible-playbook spec/ansible.yml
+  - ansible-playbook -i spec/inventory spec/ansible.yml
 
 script: 
   - rake spec
