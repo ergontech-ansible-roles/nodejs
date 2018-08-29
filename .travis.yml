@@ -18,4 +18,4 @@ install:
 
 script: 
   - rake spec
-  - ansible-playbook -i spec/inventory spec/ansible.yml
+  - ansible-playbook -i spec/inventory spec/ansible.yml | grep 'changed=0'
