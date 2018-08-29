@@ -19,3 +19,4 @@ before_script:
 
 script: 
   - rake spec
+  - ansible-playbook -i spec/inventory spec/ansible.yml
