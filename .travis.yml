@@ -14,8 +14,8 @@ before_install:
   - sudo pip install ansible
 
 install:
-  - ansible-playbook -vvv -i spec/inventory spec/ansible.yml
+  - ansible-playbook -vvv -i spec/inventory spec/playbook.yml
 
 script: 
   - rake spec
-  - ansible-playbook -i spec/inventory spec/ansible.yml | grep 'changed=0'
+  - ansible-playbook -i spec/inventory spec/playbook.yml | grep 'changed=0'
