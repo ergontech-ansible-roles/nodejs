@@ -17,6 +17,8 @@ before_install:
 install:
   - ansible-playbook -vv -i spec/inventory spec/playbook.yml --syntax-check
   - ansible-playbook -vv -i spec/inventory spec/playbook.yml -l localhost
+  - ls /etc/apt/
+  - ls /etc/apt/sources.list.d
 
 script: 
   - rake spec
