@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe file('/etc/apt/sources.d/node_8*') do
+describe file('/etc/apt/sources.list.d/nodesource.list') do
   it { should be_file }
 end
 
