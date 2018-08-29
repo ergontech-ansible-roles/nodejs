@@ -44,6 +44,8 @@ Installed the plugin 'vagrant-serverspec (1.3)'!
 You can run tests by `vagrant provision --provision-with serverspec`. This is
 easier than dealing with Ruby or Rake. 
 
+Running `vagrant provision` will provision the virtual machine with ansible and then run the ServerSpec tests.
+
 ## Travis-CI
 Any push to origin containing a `.travis.yml` file will be automatically ran on
 Travis.
