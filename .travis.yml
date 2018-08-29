@@ -15,7 +15,7 @@ before_install:
 install: gem install serverspec
 
 before_script:
-  - ansible --version
+  - ansible spec/ansible.yml
 
 script: 
   - rake spec
