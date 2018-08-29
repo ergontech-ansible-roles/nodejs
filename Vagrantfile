@@ -14,7 +14,11 @@ Vagrant.configure("2") do |config|
     ansible.install_mode   = "pip"
   end
 
-  config.vm.provision :serverspec do |spec|
-    spec.pattern = 'spec/localhost/*_spec.rb'
+  if Vagrant.has_plugin?('vagrant-serverspec')
+    config.vm.provision :serverspec do |spec|
+      spec.pattern = 'spec/localhost/*_spec.rb'
+    end
+  else
+    puts "Notice: installing vagrant-serverspec plugin is recommended"
   end
 end
