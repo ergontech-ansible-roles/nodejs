@@ -19,7 +19,7 @@ install:
   - ansible-playbook -vv -i spec/inventory spec/playbook.yml -l localhost
 
 before_script:
-  - echo "require 'serverspec'\nset :backend, :exec" > spec/localhost/aaa_spec.rb
+  - echo -e "require 'serverspec'\nset :backend, :exec" > spec/localhost/aaa_spec.rb
 
 script: 
   - rake spec
