@@ -17,9 +17,13 @@ before_install:
 install:
   - ansible-playbook -vv -i spec/inventory spec/playbook.yml --syntax-check
   - ansible-playbook -vv -i spec/inventory spec/playbook.yml -l localhost
-  - ls /etc/apt/
-  - ls /etc/apt/sources.list.d
 
 script: 
   - rake spec
-  - ansible-playbook -i spec/inventory spec/playbook.yml | grep 'changed=0'
+  - idempotence=$(mktemp)
+  - "ansible-playbook -vv -i spec/inventory spec/playbook.yml -l localhost | tee -a ${idempotence}"
+  - >
+    tail ${idempotence}
+    | grep -q 'changed=0.*failed=0'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
