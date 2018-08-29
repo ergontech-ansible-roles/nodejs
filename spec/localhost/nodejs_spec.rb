@@ -1,4 +1,4 @@
-require 'spec_helper'
+#require 'spec_helper'
 
 describe file('/etc/apt/sources.list.d/deb_nodesource_com_node_8_x.list') do
   it { should be_file }
