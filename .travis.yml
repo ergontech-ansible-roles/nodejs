@@ -18,6 +18,9 @@ install:
   - ansible-playbook -vv -i spec/inventory spec/playbook.yml --syntax-check
   - ansible-playbook -vv -i spec/inventory spec/playbook.yml -l localhost
 
+before_script:
+  - echo "require 'serverspec'\nset :backend, :exec" > spec/spec_helper.rb
+
 script: 
   - rake spec
   - idempotence=$(mktemp)
