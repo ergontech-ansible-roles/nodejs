@@ -9,12 +9,11 @@ rvm:
 before_install:
   - sudo apt-get install -y python2.7
   - sudo apt-get install -y python-setuptools
+  - gem install serverspec
   - sudo easy_install pip
   - sudo pip install ansible
 
-install: gem install serverspec
-
-before_script:
+install:
   - ansible-playbook -vvv -i spec/inventory spec/ansible.yml
 
 script: 
