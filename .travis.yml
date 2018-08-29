@@ -15,7 +15,7 @@ before_install:
   - sudo pip install ansible
 
 install:
-  - ansible-playbook -vv spec/playbook.yml --syntax-check
+  - ansible-playbook -vv -i spec/inventory spec/playbook.yml --syntax-check
   - ansible-playbook -vv -i spec/inventory spec/playbook.yml -l localhost
 
 script: 
