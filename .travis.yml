@@ -1,8 +1,11 @@
 ---
 
 sudo: required
+
 language: ruby
+
 dist: xenial
+
 rvm:
   - 2.5.1
 
@@ -10,9 +13,9 @@ before_install:
   - gem install serverspec
   - sudo apt-get install -y python2.7 python-setuptools
   - sudo easy_install pip
-  - sudo pip install ansible
 
 install:
+  - sudo pip install ansible
   - ansible-playbook -vvv -i spec/inventory spec/playbook.yml
 
 script: 
