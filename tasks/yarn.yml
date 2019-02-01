@@ -1,9 +1,14 @@
 ---
 
+# Ansibles apt_key only downloads the key when it is needed. Sometimes the key changes
+# (see https://github.com/yarnpkg/yarn/issues/6865) and Ansible won't pick up on the change
+# @docs https://yarnpkg.com/en/docs/install#debian-stable
 - name: Install apt key
   become: yes
-  apt_key:
-    url: https://dl.yarnpkg.com/debian/pubkey.gpg
+  shell: "curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -"
+  args:
+    warn: false
+  changed_when: false
   tags:
     - yarn
 
