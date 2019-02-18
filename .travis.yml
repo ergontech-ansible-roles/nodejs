@@ -2,30 +2,31 @@
 
 sudo: required
 
-language: minimal
+language: ruby
 
-services:
-  - docker
+dist: xenial
+
+rvm:
+  - 2.5.1
 
 before_install:
-  # Set some vars
-  - export container_id="test-role-container"
-  - export distro="ubuntu1604"
-  - export init="/lib/systemd/systemd"
-  - export opts="--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+  - gem install serverspec
+  - sudo easy_install pip
+  - sudo pip install ansible
 
-  # Run the container using the supplied OS.
-  - docker pull geerlingguy/docker-$distro-ansible:latest
-  - docker run --detach --volume="$PWD":/etc/ansible/roles/nodejs:rw --name $container_id $opts geerlingguy/docker-$distro-ansible:latest $init
+install:
+  - ansible-playbook -vv -i spec/inventory spec/playbook.yml --syntax-check
+  - ansible-playbook -vv -i spec/inventory spec/playbook.yml -l localhost
 
 before_script:
-  # Download and Base Test Script
-  - wget -O $PWD/tests/test.sh https://raw.githubusercontent.com/ergontech-ansible-roles/role-development-toolkit/master/scripts/base-tests.sh
-  - chmod +x $PWD/tests/test.sh
-script:
-  # Run Base Test Script
-  - ${PWD}/tests/test.sh -id $container_id -p /etc/ansible/roles/nodejs/tests
+  - echo -e "require 'serverspec'\nset :backend, :exec" > spec/localhost/aaa_spec.rb
 
-after_script:
-  # Remove the Docker container
-  - docker rm -f $container_id
+script: 
+  - rake spec
+  - idempotence=$(mktemp)
+  - "ansible-playbook -vv -i spec/inventory spec/playbook.yml -l localhost | tee -a ${idempotence}"
+  - >
+    tail ${idempotence}
+    | grep -q 'changed=0.*failed=0'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
